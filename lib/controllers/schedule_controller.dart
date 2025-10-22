@@ -1,59 +1,100 @@
 import 'package:flutter/material.dart';
 import '../models/shift.dart';
 import '../models/break_period.dart';
-import '../utils/time_utils.dart'; // <-- IMPORT NECESSÁRIO
+import '../models/category.dart';
 
 class ScheduleController {
   List<Shift> loadShifts() {
-    final breakPeriod = BreakPeriod(
-        start: TimeOfDay(hour: 12, minute: 30),
-        end: TimeOfDay(hour: 13, minute: 0),
-        label: 'Lunch');
-    final shifts = [
+    return [
+      // 🔴 Chefia
       Shift(
-        name: 'Neuza Silva',
-        start: const TimeOfDay(hour: 3, minute: 45),
-        end: const TimeOfDay(hour: 12, minute: 0),
+        name: 'Ana Rocha',
+        start: const TimeOfDay(hour: 8, minute: 0),
+        end: const TimeOfDay(hour: 16, minute: 0),
         column: 0,
-        color: Color(0x8a8e4848),
-        breaks: [
+        category: CategoryId.chefia,
+        breaks: const [
           BreakPeriod(
-            start: const TimeOfDay(hour: 8, minute: 0),
-            end: const TimeOfDay(hour: 8, minute: 30),
-            label: 'Coffee Break',
+            start: TimeOfDay(hour: 12, minute: 30),
+            end: TimeOfDay(hour: 13, minute: 0),
+            label: 'Almoço',
           ),
         ],
       ),
       Shift(
-        name: 'John Doe',
+        name: 'Carlos Mendes',
         start: const TimeOfDay(hour: 9, minute: 0),
         end: const TimeOfDay(hour: 17, minute: 0),
         column: 1,
-        color: Colors.blue,
-        breaks: [
-          breakPeriod,
+        category: CategoryId.chefia,
+        breaks: const [
+          BreakPeriod(
+            start: TimeOfDay(hour: 12, minute: 30),
+            end: TimeOfDay(hour: 13, minute: 0),
+            label: 'Almoço',
+          ),
+        ],
+      ),
+
+      // 🟠 Padeiro
+      Shift(
+        name: 'João Pereira',
+        start: const TimeOfDay(hour: 5, minute: 30),
+        end: const TimeOfDay(hour: 13, minute: 30),
+        column: 2,
+        category: CategoryId.padeiro,
+        breaks: const [
+          BreakPeriod(
+            start: TimeOfDay(hour: 9, minute: 0),
+            end: TimeOfDay(hour: 9, minute: 30),
+            label: 'Almoço',
+          ),
         ],
       ),
       Shift(
-        name: 'Jane Smith',
-        start: const TimeOfDay(hour: 10, minute: 30),
-        end: const TimeOfDay(hour: 18, minute: 0),
-        column: 2,
-        color: Colors.teal,
+        name: 'Marta Santos',
+        start: const TimeOfDay(hour: 6, minute: 0),
+        end: const TimeOfDay(hour: 14, minute: 0),
+        column: 3,
+        category: CategoryId.padeiro,
+        breaks: const [
+          BreakPeriod(
+            start: TimeOfDay(hour: 10, minute: 0),
+            end: TimeOfDay(hour: 10, minute: 30),
+            label: 'Almoço',
+          ),
+        ],
       ),
-      // ... outros turnos
+
+      // 🟢 Funcionário
+      Shift(
+        name: 'Neusa Silva',
+        start: const TimeOfDay(hour: 8, minute: 0),
+        end: const TimeOfDay(hour: 16, minute: 0),
+        column: 4,
+        category: CategoryId.funcionario,
+        breaks: const [
+          BreakPeriod(
+            start: TimeOfDay(hour: 12, minute: 30),
+            end: TimeOfDay(hour: 13, minute: 0),
+            label: 'Almoço',
+          ),
+        ],
+      ),
+      Shift(
+        name: 'José Almeida',
+        start: const TimeOfDay(hour: 7, minute: 30),
+        end: const TimeOfDay(hour: 15, minute: 30),
+        column: 5,
+        category: CategoryId.funcionario,
+        breaks: const [
+          BreakPeriod(
+            start: TimeOfDay(hour: 11, minute: 30),
+            end: TimeOfDay(hour: 12, minute: 0),
+            label: 'Almoço',
+          ),
+        ],
+      ),
     ];
-
-    // 🔒 Corrigir horários fora do intervalo
-    for (var shift in shifts) {
-      shift.start = TimeUtils.clamp(shift.start);
-      shift.end = TimeUtils.clamp(shift.end);
-      for (final b in shift.breaks) {
-        b.start = TimeUtils.clamp(b.start);
-        b.end = TimeUtils.clamp(b.end);
-      }
-    }
-
-    return shifts; // ✅ Corrigido (sem chaves)
   }
 }
