@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'break_period.dart';
+import 'category.dart';
 
 class Shift {
   final String name;
-  late TimeOfDay start;
-  late TimeOfDay end;
+  final TimeOfDay start;
+  final TimeOfDay end;
   final int column;
-  final Color color;
+  final CategoryId category;
   final List<BreakPeriod> breaks;
 
-  Shift({
+  const Shift({
     required this.name,
     required this.start,
     required this.end,
     required this.column,
-    required this.color,
+    required this.category,
     this.breaks = const [],
   });
 
@@ -32,7 +33,7 @@ class Shift {
         'start': {'h': start.hour, 'm': start.minute},
         'end': {'h': end.hour, 'm': end.minute},
         'column': column,
-        'color': color.toARGB32(),
+        'category': category.name,
         'breaks': breaks.map((b) => b.toJson()).toList(),
       };
 }
