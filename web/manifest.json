@@ -1,0 +1,7 @@
+
+{
+  "name": "turnos_diarios",
+  "short_name": "turnos",
+  "start_url": "/",
+  "display": "standalone"
+}
