@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/shift.dart';
 import '../utils/time_utils.dart';
 import 'shift_card.dart';
+import 'person_details_page.dart';
 
 class ScheduleGrid extends StatefulWidget {
   final List<Shift> shifts;
@@ -13,7 +14,7 @@ class ScheduleGrid extends StatefulWidget {
 
 class _ScheduleGridState extends State<ScheduleGrid> {
   final ScrollController _scrollController = ScrollController();
-  final Map<int, double> _avatarPositions = {}; // Mapa para posições dos avatares
+  final Map<int, double> _avatarPositions = {};
 
   @override
   void initState() {
@@ -27,7 +28,6 @@ class _ScheduleGridState extends State<ScheduleGrid> {
         final shiftHeight = TimeUtils.durationToHeight(shift.start, shift.end);
         final avatarSize = (_getColumnWidth() - 12) * 0.5;
         
-        // SUA LÓGICA SUPERIOR - simples e eficiente
         double avatarY = _scrollController.offset;
         avatarY = avatarY.clamp(0, shiftHeight - avatarSize);
         
@@ -37,7 +37,6 @@ class _ScheduleGridState extends State<ScheduleGrid> {
   }
 
   double _getColumnWidth() {
-    // Lógica para calcular largura da coluna (similar à anterior)
     final mediaQuery = MediaQuery.of(context);
     final columnCount = 6;
     return (mediaQuery.size.width - 8) / columnCount;
@@ -61,7 +60,6 @@ class _ScheduleGridState extends State<ScheduleGrid> {
         height: contentHeight,
         child: Stack(
           children: [
-            // Grade de fundo (mantida da versão anterior)
             Column(
               children: List.generate(
                 totalQuarters,
@@ -81,11 +79,9 @@ class _ScheduleGridState extends State<ScheduleGrid> {
               ),
             ),
             
-            // Cards dos turnos com avatares
             for (final shift in widget.shifts) 
               _buildShiftWithAvatar(shift, columnWidth),
             
-            // Indicador de tempo atual (mantido)
             _buildCurrentTimeIndicator(),
           ],
         ),
@@ -101,7 +97,6 @@ class _ScheduleGridState extends State<ScheduleGrid> {
 
     return Stack(
       children: [
-        // Card do turno
         Positioned(
           left: shift.column * columnWidth + 6,
           top: shiftTop,
@@ -110,7 +105,6 @@ class _ScheduleGridState extends State<ScheduleGrid> {
           child: ShiftCard(shift: shift),
         ),
         
-        // Avatar (SUA ABORDAGEM SUPERIOR)
         Positioned(
           left: shift.column * columnWidth + 6 + ((columnWidth - 12 - avatarSize) / 2),
           top: shiftTop + avatarTop,
@@ -192,7 +186,12 @@ class _ScheduleGridState extends State<ScheduleGrid> {
                 child: ElevatedButton.icon(
                   onPressed: () {
                     Navigator.of(context).pop();
-                    // TODO: Navegação para página de detalhes
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PersonDetailsPage(shift: shift),
+                      ),
+                    );
                   },
                   icon: const Icon(Icons.info_outline, size: 20),
                   label: const Text('Ver informações completas'),
