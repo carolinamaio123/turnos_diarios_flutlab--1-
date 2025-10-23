@@ -6,9 +6,7 @@ class CategoryLegend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // largura do ecrã
     final width = MediaQuery.of(context).size.width;
-    // em ecrãs menores que 600px → empilha em colunas
     final isSmallScreen = width < 600;
 
     final items = categories.values.map((cat) {
@@ -21,7 +19,6 @@ class CategoryLegend extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
       child: isSmallScreen
-          // Layout vertical (para telemóveis)
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: items
@@ -31,7 +28,6 @@ class CategoryLegend extends StatelessWidget {
                       ))
                   .toList(),
             )
-          // Layout horizontal (para tablets/desktops)
           : Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: items,
