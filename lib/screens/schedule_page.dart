@@ -5,6 +5,7 @@ import '../widgets/segmented_buttons.dart';
 import '../widgets/time_column.dart';
 import '../widgets/schedule_grid.dart';
 import '../widgets/bottom_navigation.dart';
+import '../widgets/category_legend.dart';
 
 class SchedulePage extends StatelessWidget {
   const SchedulePage({super.key});
@@ -21,6 +22,7 @@ class SchedulePage extends StatelessWidget {
           children: [
             const TopAppBar(),
             const SegmentedButtons(),
+            const CategoryLegend(),
             Expanded(
               child: Row(
                 children: [
