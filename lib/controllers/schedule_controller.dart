@@ -13,7 +13,7 @@ class ScheduleController {
         end: const TimeOfDay(hour: 16, minute: 0),
         column: 0,
         category: CategoryId.chefia,
-        breaks: const [
+        breaks: [
           BreakPeriod(
             start: TimeOfDay(hour: 12, minute: 30),
             end: TimeOfDay(hour: 13, minute: 0),
@@ -27,7 +27,7 @@ class ScheduleController {
         end: const TimeOfDay(hour: 17, minute: 0),
         column: 1,
         category: CategoryId.chefia,
-        breaks: const [
+        breaks: [
           BreakPeriod(
             start: TimeOfDay(hour: 12, minute: 30),
             end: TimeOfDay(hour: 13, minute: 0),
@@ -43,7 +43,7 @@ class ScheduleController {
         end: const TimeOfDay(hour: 13, minute: 30),
         column: 2,
         category: CategoryId.padeiro,
-        breaks: const [
+        breaks: [
           BreakPeriod(
             start: TimeOfDay(hour: 9, minute: 0),
             end: TimeOfDay(hour: 9, minute: 30),
@@ -57,7 +57,7 @@ class ScheduleController {
         end: const TimeOfDay(hour: 14, minute: 0),
         column: 3,
         category: CategoryId.padeiro,
-        breaks: const [
+        breaks: [
           BreakPeriod(
             start: TimeOfDay(hour: 10, minute: 0),
             end: TimeOfDay(hour: 10, minute: 30),
@@ -73,7 +73,7 @@ class ScheduleController {
         end: const TimeOfDay(hour: 16, minute: 0),
         column: 4,
         category: CategoryId.funcionario,
-        breaks: const [
+        breaks: [
           BreakPeriod(
             start: TimeOfDay(hour: 12, minute: 30),
             end: TimeOfDay(hour: 13, minute: 0),
@@ -87,7 +87,7 @@ class ScheduleController {
         end: const TimeOfDay(hour: 15, minute: 30),
         column: 5,
         category: CategoryId.funcionario,
-        breaks: const [
+        breaks: [
           BreakPeriod(
             start: TimeOfDay(hour: 11, minute: 30),
             end: TimeOfDay(hour: 12, minute: 0),
