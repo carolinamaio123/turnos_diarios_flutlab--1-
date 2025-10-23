@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BreakPeriod {
-  late TimeOfDay start;
-  late TimeOfDay end;
+  final TimeOfDay start;
+  final TimeOfDay end;
   final String? label;
 
   BreakPeriod({
