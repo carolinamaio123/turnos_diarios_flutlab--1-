@@ -19,6 +19,9 @@ class Shift {
     this.breaks = const [],
   });
 
+  // GETTER para a cor baseada na categoria
+  Color get color => categories[category]!.color;
+
   Duration get netDuration {
     final total = Duration(
       minutes: (end.hour * 60 + end.minute) - (start.hour * 60 + start.minute),
