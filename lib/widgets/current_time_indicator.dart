@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../utils/time_utils.dart';
 
 class CurrentTimeIndicator extends StatelessWidget {
-  const CurrentTimeIndicator({super.key});
+  const CurrentTimeIndicator({super.key, required TimeOfDay time, required TimeOfDay now});
 
   @override
   Widget build(BuildContext context) {

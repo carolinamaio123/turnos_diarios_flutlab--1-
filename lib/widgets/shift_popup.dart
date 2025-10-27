@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../models/shift.dart';
-import '../../pages/person_details_page.dart';
+import 'person_details_page.dart';
 
 void showShiftPopup(BuildContext context, Shift shift) {
   showDialog(

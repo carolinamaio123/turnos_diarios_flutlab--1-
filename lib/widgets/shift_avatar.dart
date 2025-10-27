@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../models/shift.dart';
 import '../../utils/time_utils.dart';
 import 'shift_popup.dart';
-import '../shift_card.dart';
+import 'shift_card.dart';
 
 class ShiftAvatar extends StatelessWidget {
   final Shift shift;

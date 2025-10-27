@@ -70,7 +70,7 @@ class _ScheduleGridState extends State<ScheduleGrid> {
               _buildGridLines(totalQuarters),
               for (final shift in widget.shifts)
                 ShiftAvatar(shift: shift, columnWidth: columnWidth),
-              CurrentTimeIndicator(now: _now),
+              CurrentTimeIndicator(now: _now, time: _now,),
             ],
           ),
         );
@@ -80,9 +80,9 @@ class _ScheduleGridState extends State<ScheduleGrid> {
 
   // --- Grid dinâmica ---
   Widget _buildGridLines(int totalQuarters) {
-    const quarterLine = GridLineStyle(width: 0.5, color: Colors.grey.shade400);
-    const halfHourLine = GridLineStyle(width: 1.0, color: Colors.grey.shade600);
-    const hourLine = GridLineStyle(width: 2.0, color: Colors.grey.shade800);
+    const quarterLine = GridLineStyle(width: 0.5, color: Color.fromRGBO(189, 189, 189, 1));
+    const halfHourLine = GridLineStyle(width: 1.0, color: Color.fromRGBO(117, 117, 117, 1));
+    const hourLine = GridLineStyle(width: 2.0, color: Color.fromRGBO(66, 66, 66, 1));
 
     final currentMinutes = _now.hour * 60 + _now.minute;
 
