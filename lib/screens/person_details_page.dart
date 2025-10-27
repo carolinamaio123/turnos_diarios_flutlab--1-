@@ -776,7 +776,7 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
                           },
                         ),
                         DropdownButtonFormField<String>(
-                          value: vacation['status'] as String,
+                          initialValue: vacation['status'] as String,
                           items: ['Aprovado', 'Pendente', 'Cancelado']
                               .map((status) => DropdownMenuItem(
                                     value: status,

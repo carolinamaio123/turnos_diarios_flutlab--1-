@@ -1,3 +1,4 @@
+// ...existing code...
 import 'package:flutter/material.dart';
 import '../models/shift.dart';
 import '../utils/time_utils.dart';
@@ -13,79 +14,53 @@ class ScheduleGrid extends StatefulWidget {
 }
 
 class _ScheduleGridState extends State<ScheduleGrid> {
-  final ScrollController _scrollController = ScrollController();
-  final Map<int, double> _avatarPositions = {};
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_updateAvatarPositions);
-  }
-
-  void _updateAvatarPositions() {
-    setState(() {
-      for (final shift in widget.shifts) {
-        final shiftHeight = TimeUtils.durationToHeight(shift.start, shift.end);
-        final avatarSize = (_getColumnWidth() - 12) * 0.5;
-        
-        double avatarY = _scrollController.offset;
-        avatarY = avatarY.clamp(0, shiftHeight - avatarSize);
-        
-        _avatarPositions[shift.hashCode] = avatarY;
-      }
-    });
-  }
-
-  double _getColumnWidth() {
-    final mediaQuery = MediaQuery.of(context);
-    final columnCount = 6;
-    return (mediaQuery.size.width - 8) / columnCount;
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final totalQuarters = (TimeUtils.endHour - TimeUtils.startHour) * 4;
     final contentHeight = totalQuarters * TimeUtils.quarterHeight;
-    final columnWidth = _getColumnWidth();
 
-    return SingleChildScrollView(
-      controller: _scrollController,
-      child: SizedBox(
-        height: contentHeight,
-        child: Stack(
-          children: [
-            Column(
-              children: List.generate(
-                totalQuarters,
-                (i) => Container(
-                  height: TimeUtils.quarterHeight,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      top: BorderSide(
-                        color: ((i * 15) % 60) == 30 
-                            ? Colors.grey.shade600 
-                            : Colors.grey.shade300,
-                        width: ((i * 15) % 60) == 30 ? 1.2 : 0.6,
+    // usa LayoutBuilder para respeitar a largura passada pelo parent (SizedBox)
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final availableWidth = constraints.maxWidth.isFinite && constraints.maxWidth > 0
+            ? constraints.maxWidth
+            : MediaQuery.of(context).size.width;
+        final columnCount = 6;
+        final columnWidth = (availableWidth - 8) / columnCount;
+
+        return SizedBox(
+          height: contentHeight,
+          child: Stack(
+            children: [
+              // linhas do grid
+              Column(
+                children: List.generate(
+                  totalQuarters,
+                  (i) => Container(
+                    height: TimeUtils.quarterHeight,
+                    decoration: BoxDecoration(
+                      border: Border(
+                        top: BorderSide(
+                          color: ((i * 15) % 60) == 30
+                              ? Colors.grey.shade600
+                              : Colors.grey.shade300,
+                          width: ((i * 15) % 60) == 30 ? 1.2 : 0.6,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            
-            for (final shift in widget.shifts) 
-              _buildShiftWithAvatar(shift, columnWidth),
-            
-            _buildCurrentTimeIndicator(),
-          ],
-        ),
-      ),
+
+              // turnos (posicionados pelo tempo)
+              for (final shift in widget.shifts) _buildShiftWithAvatar(shift, columnWidth),
+
+              // indicador de tempo atual
+              _buildCurrentTimeIndicator(),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -93,7 +68,7 @@ class _ScheduleGridState extends State<ScheduleGrid> {
     final shiftHeight = TimeUtils.durationToHeight(shift.start, shift.end);
     final shiftTop = TimeUtils.timeToOffset(shift.start);
     final avatarSize = (columnWidth - 12) * 0.5;
-    final avatarTop = _avatarPositions[shift.hashCode] ?? 8;
+    final avatarTop = 8.0;
 
     return Stack(
       children: [
@@ -104,7 +79,7 @@ class _ScheduleGridState extends State<ScheduleGrid> {
           height: shiftHeight,
           child: ShiftCard(shift: shift),
         ),
-        
+
         Positioned(
           left: shift.column * columnWidth + 6 + ((columnWidth - 12 - avatarSize) / 2),
           top: shiftTop + avatarTop,
@@ -256,3 +231,4 @@ class _ScheduleGridState extends State<ScheduleGrid> {
     );
   }
 }
+// ...existing code...
