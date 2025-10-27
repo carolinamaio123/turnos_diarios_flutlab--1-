@@ -1,0 +1,35 @@
+name: Flutter CI/CD Android
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_android:
+    runs-on: ubuntu-latest  # Usa uma máquina virtual Linux
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+
+      - name: Configurar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Instalar Dependências
+        run: flutter pub get
+
+      - name: Executar Testes
+        run: flutter test
+
+      - name: Compilar APK de Lançamento
+        run: flutter build apk --release
+
+      - name: Upload do Artefato (APK)
+        uses: actions/upload-artifact@v4 # Action para guardar o ficheiro gerado
+        with:
+          name: app-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
